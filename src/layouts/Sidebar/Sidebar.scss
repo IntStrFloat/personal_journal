@@ -1,0 +1,14 @@
+.sidebar {
+    .sidebarHeader{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
+    }
+    .sidebarList{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+}

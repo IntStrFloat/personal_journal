@@ -1,0 +1,95 @@
+.body{
+    width: 100%;
+    margin-top: 20px;
+    
+    .form{
+        
+        .textArea{
+            &:focus{
+                outline: none;
+            }
+        }
+        display: flex;
+        .titleContainer{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .title{
+            width: 100%;
+            margin: 0;
+
+            font-size: 32px;
+            font-weight: 600;
+            line-height: normal;
+            &:focus{
+                border: none;
+                outline: none;
+            }
+        }
+        .dataContainer {
+            margin-top: 30px;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            &:focus{
+                outline: none;
+            }
+            grid-template-columns: auto 1fr;
+            gap: 20px;
+            align-items: flex-start;
+            .labelData{
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: auto 100px;
+                gap: 20px;
+            }
+        }
+        .dataText{
+            color: rgba(255, 255, 255, 0.60);
+            font-size: 14px;
+            font-weight: 600;
+            line-height: normal;
+        }
+        .folderContainer {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: auto  1fr;
+            gap: 20px;
+            .labelTag {
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: auto 100px;
+                gap: 20px;
+            }
+            align-items: flex-start;
+        }
+        
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+        input{
+            
+            background: transparent;
+            border: none;
+            color: white;
+        }
+        hr{
+            width: 100%;
+            border: none;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.10) !important;
+        }
+        textarea{
+            color: white;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 400;
+        }
+        .submitButton{
+            align-self: flex-start;
+        }
+    }
+}

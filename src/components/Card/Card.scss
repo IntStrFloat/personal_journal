@@ -1,0 +1,9 @@
+.cardItem{
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease-in-out;
+    &:hover{
+        background:rgba(255, 255, 255, 0.10);
+        cursor: pointer;
+    }
+}

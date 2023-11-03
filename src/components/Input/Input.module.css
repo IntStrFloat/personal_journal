@@ -1,0 +1,15 @@
+.input{
+    color: white;
+    background-color: blue;
+    width: 100%;
+}
+.input:focus{
+    outline: none;
+}
+.title {
+    font-size: 34px;
+    font-weight: bold;
+}
+.inValid {
+    outline: 1px solid red;
+}

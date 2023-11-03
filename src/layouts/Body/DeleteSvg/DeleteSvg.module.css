@@ -1,0 +1,13 @@
+.svg {
+    border-radius: 100px;
+    border: 2.3px solid #FFF;
+    opacity: 0.4;
+box-sizing: border-box;
+display: flex;
+width: 30px;
+height: 30px;
+padding: 2px;
+justify-content: center;
+align-items: center;
+
+}
