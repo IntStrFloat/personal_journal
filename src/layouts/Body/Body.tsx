@@ -8,6 +8,7 @@ import {
   useEffect,
   useReducer,
   useRef,
+  useContext,
 } from 'react';
 import './Body.scss';
 import cn from 'classnames';
@@ -17,6 +18,7 @@ import { FolderSvg } from './FolderSvg/FolderSvg';
 import { DataSvg } from './DataSvg/DataSvg';
 import { INITIAL_FORM_STATE, IState, formRefucer } from './reducer';
 import { Input } from '../../components/Input/Input';
+import { UserContext } from '../../context/user.context';
 
 interface BodyProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   setData: any;
@@ -32,6 +34,7 @@ interface ValidateValues {
 export const Body: FC<BodyProps> = ({ formData, setData, children, className, ...props }) => {
   const [formState, dispatchForm] = useReducer(formRefucer, INITIAL_FORM_STATE);
   const { validate, readyToSubmit, values } = formState;
+  const { userId } = useContext(UserContext);
   const titleRef = useRef<HTMLInputElement>(null);
   const dateRef = useRef<HTMLInputElement>(null);
   const textRef = useRef<HTMLTextAreaElement>(null);
@@ -52,13 +55,14 @@ export const Body: FC<BodyProps> = ({ formData, setData, children, className, ..
   useEffect(() => {
     console.log(1);
     if (readyToSubmit) {
-      setData((prev: any) => [
-        ...prev,
-        { title: values.title, text: values.text, data: new Date(values.date) },
-      ]);
+      setData({ ...values, data: values.date });
       dispatchForm({ type: 'CLEAR' });
     }
   }, [readyToSubmit, values]);
+
+  useEffect(() => {
+    dispatchForm({ type: 'CHANGE_VALUE', payload: { userId } });
+  }, [userId]);
 
   const focusError = (validate: ValidateValues) => {
     switch (true) {

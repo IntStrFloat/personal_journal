@@ -10,6 +10,7 @@ export const INITIAL_FORM_STATE = {
     date: '',
     tag: '',
     text: '',
+    id: 1,
   },
   readyToSubmit: false,
 };
@@ -25,6 +26,7 @@ export interface IState {
     date: string;
     tag: string;
     text: string;
+    id: number;
   };
   readyToSubmit: boolean;
 }
@@ -62,41 +64,5 @@ export function formRefucer(state: IState, action: Action) {
     case 'CHANGE_VALUE': {
       return { ...state, values: { ...state.values, ...action.payload } };
     }
-    // case 'UPDATE_TITLE': {
-    //   return {
-    //     ...state,
-    //     validate: {
-    //       ...state.values,
-    //       title: action.payload.title,
-    //     },
-    //   };
-    // }
-    // case 'UPDATE_DATE': {
-    //   return {
-    //     ...state,
-    //     validate: {
-    //       ...state.values,
-    //       title: action.payload.date,
-    //     },
-    //   };
-    // }
-    // case 'UPDATE_TAG': {
-    //   return {
-    //     ...state,
-    //     validate: {
-    //       ...state.values,
-    //       title: action.payload.tag,
-    //     },
-    //   };
-    // }
-    // case 'UPDATE_TEXT': {
-    //   return {
-    //     ...state,
-    //     validate: {
-    //       ...state.values,
-    //       title: action.payload.text,
-    //     },
-    //   };
-    // }
   }
 }

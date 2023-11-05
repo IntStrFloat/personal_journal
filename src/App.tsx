@@ -4,39 +4,39 @@ import { Card } from './components/Card/Card';
 import { JournalItem } from './components/JournalList/JournalItem/JournalItem';
 import { Body } from './layouts/Body/Body';
 import { Sidebar } from './layouts/Sidebar/Sidebar';
+import { useLocalStorage } from './hooks/useLocalStorage.hook';
+import { UserContext, UserContextProvider } from './context/user.context';
+import { Header } from './components/Header/Header';
 
 interface IJournalItem {
   title: string;
   text: string;
   data: Date;
+  id: number;
 }
 
 function App() {
-  const [userData, setUserData] = useState<IJournalItem[]>([]);
-  useEffect(() => {
-    const localStorageData: IJournalItem[] = JSON.parse(localStorage.getItem('data')!);
-
-    if (localStorageData) {
-      setUserData(localStorageData.map((el) => ({ ...el, data: new Date(el.data) })));
-    }
-  }, []);
-  useEffect(() => {
-    console.log(1);
-    if (userData.length) {
-      console.log(userData);
-      localStorage.setItem('data', JSON.stringify(userData));
-    }
-  }, [userData]);
-
+  const [userData, setUserData] = useLocalStorage('data');
+  const addJournalItems = (item: IJournalItem) => {
+    setUserData([
+      ...userData,
+      {
+        ...item,
+        data: new Date(item.data),
+      },
+    ]);
+  };
   return (
-    <div className="mainLayout">
-      <div className="sidebar">
-        <Sidebar date={userData} />
+    <UserContextProvider>
+      <div className="mainLayout">
+        <div className="sidebar">
+          <Sidebar date={userData} />
+        </div>
+        <Body className="text" setData={addJournalItems}>
+          Текст
+        </Body>
       </div>
-      <Body className="text" setData={setUserData}>
-        Текст
-      </Body>
-    </div>
+    </UserContextProvider>
   );
 }
 
