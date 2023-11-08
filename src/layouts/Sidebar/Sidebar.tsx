@@ -9,15 +9,17 @@ import { JournalListAddButton } from '../../components/JournalList/JournalListAd
 import { Header } from '../../components/Header/Header';
 import { UserContext } from '../../context/user.context';
 interface SidebarProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  setFormValues: any;
   date: {
     title: string;
     text: string;
     data: Date;
+    userId: string | number;
     id: number;
   }[];
 }
 
-export const Sidebar: FC<SidebarProps> = ({ date, className, ...props }) => {
+export const Sidebar: FC<SidebarProps> = ({ date, setFormValues, className, ...props }) => {
   const { userId } = useContext(UserContext);
   console.log(date);
   return (
@@ -28,9 +30,22 @@ export const Sidebar: FC<SidebarProps> = ({ date, className, ...props }) => {
       </div>
       <div className="sidebarList">
         {date
-          .filter((element) => element.id === userId)
+          .filter((element) => element.userId == Number(userId))
           .map((elem) => (
-            <JournalItem title={elem.title} date={new Date(elem.data)} text={elem.text} />
+            <JournalItem
+              onClick={() =>
+                setFormValues({
+                  title: elem.title,
+                  date: elem.data,
+                  text: elem.text,
+                  id: elem.id,
+                  userId: elem.userId,
+                })
+              }
+              title={elem.title}
+              date={new Date(elem.data)}
+              text={elem.text}
+            />
           ))}
       </div>
     </div>

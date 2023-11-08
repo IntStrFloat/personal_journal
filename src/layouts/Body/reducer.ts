@@ -10,7 +10,6 @@ export const INITIAL_FORM_STATE = {
     date: '',
     tag: '',
     text: '',
-    id: 1,
   },
   readyToSubmit: false,
 };
@@ -36,7 +35,8 @@ type Action =
   | { type: 'CLEAR_VALIDATE' }
   | { type: 'SUBMIT' }
   | { type: 'CHANGE_VALUE'; payload: UpdatePayload }
-  | { type: 'CLEAR' };
+  | { type: 'CLEAR' }
+  | { type: 'CHANGE_BODY_VALUE'; payload: UpdatePayload };
 
 export function formRefucer(state: IState, action: Action) {
   switch (action.type) {

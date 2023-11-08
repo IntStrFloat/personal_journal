@@ -19,10 +19,12 @@ import { DataSvg } from './DataSvg/DataSvg';
 import { INITIAL_FORM_STATE, IState, formRefucer } from './reducer';
 import { Input } from '../../components/Input/Input';
 import { UserContext } from '../../context/user.context';
+import { IJournalItem } from '../../App';
 
 interface BodyProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   setData: any;
   formData: any;
+  selectedFormValues: IJournalItem;
 }
 
 interface ValidateValues {
@@ -31,8 +33,16 @@ interface ValidateValues {
   tag: boolean;
   text: boolean;
 }
-export const Body: FC<BodyProps> = ({ formData, setData, children, className, ...props }) => {
+export const Body: FC<BodyProps> = ({
+  formData,
+  setData,
+  selectedFormValues,
+  children,
+  className,
+  ...props
+}) => {
   const [formState, dispatchForm] = useReducer(formRefucer, INITIAL_FORM_STATE);
+  console.log(selectedFormValues);
   const { validate, readyToSubmit, values } = formState;
   const { userId } = useContext(UserContext);
   const titleRef = useRef<HTMLInputElement>(null);
@@ -51,17 +61,21 @@ export const Body: FC<BodyProps> = ({ formData, setData, children, className, ..
       clearTimeout(timeoutId);
     };
   }, [validate]);
-
+  useEffect(() => {
+    dispatchForm({ type: 'CHANGE_VALUE', payload: { ...selectedFormValues } });
+  }, [selectedFormValues]);
   useEffect(() => {
     console.log(1);
     if (readyToSubmit) {
-      setData({ ...values, data: values.date });
+      setData({ ...values, data: values.date, userId: userId });
       dispatchForm({ type: 'CLEAR' });
+      dispatchForm({ type: 'CHANGE_VALUE', payload: { userId } });
     }
   }, [readyToSubmit, values]);
 
   useEffect(() => {
     dispatchForm({ type: 'CHANGE_VALUE', payload: { userId } });
+    dispatchForm({ type: 'CLEAR' });
   }, [userId]);
 
   const focusError = (validate: ValidateValues) => {
@@ -116,7 +130,7 @@ export const Body: FC<BodyProps> = ({ formData, setData, children, className, ..
             id="data"
             type="date"
             name="date"
-            value={values.date}
+            value={values.date ? values.date.slice(0, 10) : ''}
             onChange={onChange}
           />
         </div>

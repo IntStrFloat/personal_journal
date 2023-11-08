@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 interface IJournalItem {
+  id: number;
   title: string;
   text: string;
   data: Date;
